@@ -8,19 +8,19 @@
  *
  * Return: Pointer to the lowest common ancestor node, NULL if not found
  */
-binary_tree_t *binary_tree_ancestor_helper(const binary_tree_t *root,
-	const binary_tree_t *first, const binary_tree_t *second)
+const binary_tree_t *binary_tree_ancestor_helper(const binary_tree_t *root,
+		const binary_tree_t *first, const binary_tree_t *second)
 {
-	binary_tree_t *left, *right;
+	const binary_tree_t *left, *right;
 
 	if (root == NULL || root == first || root == second)
-		return ((binary_tree_t *)root);
+		return (root);
 
 	left = binary_tree_ancestor_helper(root->left, first, second);
 	right = binary_tree_ancestor_helper(root->right, first, second);
 
 	if (left != NULL && right != NULL)
-		return ((binary_tree_t *)root);
+		return (root);
 
 	return ((left != NULL) ? left : right);
 }
@@ -32,7 +32,7 @@ binary_tree_t *binary_tree_ancestor_helper(const binary_tree_t *root,
  *
  * Return: Pointer to the lowest common ancestor node, NULL if not found
  */
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+const binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	const binary_tree_t *second)
 {
 	if (first == NULL || second == NULL)
@@ -40,4 +40,3 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 
 	return (binary_tree_ancestor_helper(first, first, second));
 }
-
