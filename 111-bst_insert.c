@@ -7,33 +7,44 @@
  *
  * Return: Pointer to the created node, or NULL on failure
  */
+
 bst_t *bst_insert(bst_t **tree, int value)
 {
-    if (tree == NULL)
-        return (NULL);
+	bst_t *current, *new_node;
 
-    return bst_insert_recursive(tree, value);
+	if (tree != NULL)
+	{
+		current = *tree;
+
+		if (current == NULL)
+		{
+			new_node = binary_tree_node(curr, value);
+			if (new_node == NULL)
+				return (NULL);
+			return (*tree = new_node);
+		}
+
+		if (value < current->n) /* insert in left subtree */
+		{
+			if (current->left != NULL)
+				return (bst_insert(&current->left, value));
+
+			new_node = binary_tree_node(current, value);
+			if (new_node == NULL)
+				return (NULL);
+			return (current->left = new_node);
+		}
+		if (value > current->n) /* insert in right subtree */
+		{
+			if (current->right != NULL)
+				return (bst_insert(&current->right, value));
+
+			new_node = binary_tree_node(current, value);
+			if (new_node == NULL)
+				return (NULL);
+			return (current->right = new_node);
+		}
+	}
+	return (NULL);
 }
 
-/**
- * bst_insert_recursive - Recursive helper function for BST insertion
- * @node: Pointer to the current node
- * @value: Value to store in the node to be inserted
- *
- * Return: Pointer to the created node, or NULL on failure
- */
-bst_t *bst_insert_recursive(bst_t **node, int value)
-{
-    if (*node == NULL)
-    {
-        *node = binary_tree_node(NULL, value);
-        return (*node);
-    }
-
-    if (value < (*node)->n)
-        return (bst_insert_recursive(&((*node)->left), value));
-    else if (value > (*node)->n)
-        return (bst_insert_recursive(&((*node)->right), value));
-
-    return (NULL);
-}
