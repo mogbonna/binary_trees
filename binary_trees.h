@@ -66,6 +66,4 @@ bst_t *bst_remove(bst_t *root, int value);
 
 
 int is_bst_helper(const binary_tree_t *tree, int min, int max);
-bst_t *find_min_value_node(bst_t *node);
-
 #endif /* _BINARY_TREES_H_ */
