@@ -8,11 +8,11 @@
  */
 bst_t *find_min_value_node(bst_t *node)
 {
-	bst_t *node = root;
+	bst_t *min = root;
 
-	while (node->left)
-		node = node->left;
-	return (node);
+	while (min->left)
+		min = min->left;
+	return (min);
 }
 
 /**
@@ -30,13 +30,11 @@ bst_t *bst_remove(bst_t *root, int value)
 		return (NULL);
 
 	if (value < root->n)
-	{
 		root->left = bst_remove(root->left, value);
-	}
+
 	else if (value > root->n)
-	{
 		root->right = bst_remove(root->right, value);
-	}
+
 	else
 	{
 		if (root->left == NULL)
