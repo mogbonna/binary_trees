@@ -12,7 +12,7 @@ bst_t *bst_insert(bst_t **tree, int value)
 	if (tree == NULL)
 		return (NULL);
 
-	return bst_insert_recursive(tree, value);
+	return (bst_insert_recursive(tree, value));
 }
 
 /**
@@ -25,10 +25,10 @@ bst_t *bst_insert(bst_t **tree, int value)
 bst_t *bst_insert_recursive(bst_t **node, int value)
 {
 	if (*node == NULL)
-		{
-			*node = binary_tree_node(NULL, value);
-			return (*node);
-		}
+	{
+		*node = binary_tree_node(NULL, value);
+		return (*node);
+	}
 
 	if (value < (*node)->n)
 		return (bst_insert_recursive(&((*node)->left), value));
