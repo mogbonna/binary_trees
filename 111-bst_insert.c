@@ -7,44 +7,43 @@
  *
  * Return: Pointer to the created node, or NULL on failure
  */
-
 bst_t *bst_insert(bst_t **tree, int value)
 {
-	bst_t *current, *new_node;
+	bst_t *tmp = NULL;
+	bst_t *second = NULL;
+	bst_t *new = NULL;
 
-	if (tree != NULL)
+	if (!tree)
+		return (NULL);
+	if (*tree == NULL)
+		return (*tree = binary_tree_node(NULL, value));
+
+	tmp = *tree;
+	while (tmp)
 	{
-		current = *tree;
-
-		if (current == NULL)
-		{
-			new_node = binary_tree_node(curr, value);
-			if (new_node == NULL)
-				return (NULL);
-			return (*tree = new_node);
-		}
-
-		if (value < current->n) /* insert in left subtree */
-		{
-			if (current->left != NULL)
-				return (bst_insert(&current->left, value));
-
-			new_node = binary_tree_node(current, value);
-			if (new_node == NULL)
-				return (NULL);
-			return (current->left = new_node);
-		}
-		if (value > current->n) /* insert in right subtree */
-		{
-			if (current->right != NULL)
-				return (bst_insert(&current->right, value));
-
-			new_node = binary_tree_node(current, value);
-			if (new_node == NULL)
-				return (NULL);
-			return (current->right = new_node);
-		}
+		second = tmp;
+		if (value < tmp->n)
+			tmp = tmp->left;
+		else if (value > tmp->n)
+			tmp = tmp->right;
+		else if (value == tmp->n)
+			return (NULL);
 	}
-	return (NULL);
+
+	new = binary_tree_node(NULL, value);
+	if (second == NULL)
+		second = new;
+	else if (value < second->n)
+	{
+		second->left = new;
+		new->parent = second;
+	}
+	else
+	{
+		second->right = new;
+		new->parent = second;
+	}
+
+	return (new);
 }
 
